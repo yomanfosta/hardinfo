@@ -20,27 +20,11 @@
 #define __HARDINFO_H__
 
 #include <gtk/gtk.h>
-#include <shell.h>
+#include "shell.h"
 
 typedef struct _ModuleEntry		ModuleEntry;
 typedef struct _ModuleAbout		ModuleAbout;
 typedef struct _FileTypes		FileTypes;
-typedef struct _ProgramParameters	ProgramParameters;
-
-struct _ProgramParameters {
-  gboolean create_report;
-  gboolean show_version;
-  gboolean gui_running;
-  gboolean list_modules;
-  gboolean autoload_deps;
-  
-  gint     report_format;
-  
-  gchar  **use_modules;
-  gchar   *path_lib;
-  gchar   *path_data;
-  gchar   *argv0;
-};
 
 struct _FileTypes {
   gchar	*name;
