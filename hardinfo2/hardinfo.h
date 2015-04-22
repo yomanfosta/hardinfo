@@ -25,7 +25,15 @@
 typedef struct _ModuleEntry		ModuleEntry;
 typedef struct _ModuleAbout		ModuleAbout;
 typedef struct _FileTypes		FileTypes;
+typedef struct _ProgramParameters		ProgramParameters;
 
+struct _ProgramParameters {
+
+    gchar  **use_modules;
+    gchar   *path_lib;
+    gchar   *path_data;
+    gchar   *argv0;
+};
 struct _FileTypes {
   gchar	*name;
   gchar *mime_type;
@@ -98,11 +106,6 @@ const gchar  *module_entry_get_note(ShellModuleEntry *module_entry);
 /* BinReloc stuff */
 gboolean binreloc_init(gboolean try_hardcoded);
 
-/* GTK UI stuff */
-gboolean ui_init(int *argc, char ***argv);
-void     parameters_init(int *argc, char ***argv, ProgramParameters *params);
-extern   ProgramParameters params;
-
 /* Module stuff */
 gchar		*module_call_method(gchar *method);
 gchar           *module_call_method_param(gchar * method, gchar * parameter);
@@ -114,5 +117,8 @@ gchar	       *h_sysfs_read_string(gchar *endpoint, gchar *entry);
 
 #define SCAN_START()  static gboolean scanned = FALSE; if (reload) scanned = FALSE; if (scanned) return;
 #define SCAN_END()    scanned = TRUE;
+
+extern ProgramParameters params;
+
 
 #endif				/* __HARDINFO_H__ */

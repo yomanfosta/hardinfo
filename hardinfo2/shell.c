@@ -65,166 +65,25 @@ Shell *shell_get_main_shell(void)
     return shell;
 }
 
-void shell_ui_manager_set_visible(const gchar * path, gboolean setting)
-{
-    GtkWidget *widget;
-
-    if (!params.gui_running)
-	return;
-
-    widget = gtk_ui_manager_get_widget(shell->ui_manager, path);
-    if (!widget)
-	return;
-
-    if (setting)
-	gtk_widget_show(widget);
-    else
-	gtk_widget_hide(widget);
-}
-
-void shell_action_set_property(const gchar * action_name,
-			       const gchar * property, gboolean setting)
-{
-    GtkAction *action;
-
-    if (!params.gui_running)
-	return;
-
-    action = gtk_action_group_get_action(shell->action_group, action_name);
-    if (action) {
-	GValue value = { 0 };
-
-	g_value_init(&value, G_TYPE_BOOLEAN);
-	g_value_set_boolean(&value, setting);
-
-	g_object_set_property(G_OBJECT(action), property, &value);
-
-	g_value_unset(&value);
-    }
-}
-
-void shell_action_set_enabled(const gchar * action_name, gboolean setting)
-{
-    if (params.gui_running && shell->action_group) {
-	GtkAction *action;
-
-	action =
-	    gtk_action_group_get_action(shell->action_group, action_name);
-	if (action) {
-	    gtk_action_set_sensitive(action, setting);
-	}
-    }
-}
-
-gboolean shell_action_get_enabled(const gchar * action_name)
-{
-    GtkAction *action;
-
-    if (!params.gui_running)
-	return FALSE;
-
-    action = gtk_action_group_get_action(shell->action_group, action_name);
-    if (action) {
-	return gtk_action_get_sensitive(action);
-    }
-
-    return FALSE;
-}
-
-void shell_set_side_pane_visible(gboolean setting)
-{
-    if (!params.gui_running)
-	return;
-
-    if (setting)
-	gtk_widget_show(shell->tree->scroll);
-    else
-	gtk_widget_hide(shell->tree->scroll);
-}
-
-gboolean shell_action_get_active(const gchar * action_name)
-{
-    GtkAction *action;
-    GSList *proxies;
-
-    /* FIXME: Ugh. Are you sure there isn't any simpler way? O_o */
-    if (!params.gui_running)
-	return FALSE;
-
-    action = gtk_action_group_get_action(shell->action_group, action_name);
-    if (action) {
-	proxies = gtk_action_get_proxies(action);
-
-	for (; proxies; proxies = proxies->next) {
-	    GtkWidget *widget = (GtkWidget *) proxies->data;
-
-	    if (GTK_IS_CHECK_MENU_ITEM(widget)) {
-		return
-		    gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM
-						   (widget));
-	    }
-	}
-    }
-
-    return FALSE;
-}
-
-void shell_action_set_active(const gchar * action_name, gboolean setting)
-{
-    GtkAction *action;
-    GSList *proxies;
-
-    /* FIXME: Ugh. Are you sure there isn't any simpler way? O_o */
-    if (!params.gui_running)
-	return;
-
-    action = gtk_action_group_get_action(shell->action_group, action_name);
-    if (action) {
-	proxies = gtk_action_get_proxies(action);
-
-	for (; proxies; proxies = proxies->next) {
-	    GtkWidget *widget = (GtkWidget *) proxies->data;
-
-	    if (GTK_IS_CHECK_MENU_ITEM(widget)) {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(widget),
-					       setting);
-		return;
-	    }
-	}
-    }
-}
 
 void shell_status_pulse(void)
 {
-    if (params.gui_running) {
-	if (shell->_pulses++ == 5) {
-	    /* we're pulsing for some time, disable the interface and change the cursor
-	       to a hourglass */
-	    shell_view_set_enabled(FALSE);
-	}
-
-	gtk_progress_bar_pulse(GTK_PROGRESS_BAR(shell->progress));
-	while (gtk_events_pending())
-	    gtk_main_iteration();
-    } else {
-	static gint counter = 0;
+    static gint counter = 0;
 
 	fprintf(stderr, "\033[2K\033[40;37;1m %c\033[0m\r",
 		"|/-\\"[counter++ % 4]);
-    }
+
 }
 
 void shell_status_set_percentage(gint percentage)
 {
-    if (params.gui_running) {
-	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(shell->progress),
-				      (float) percentage / 100.0);
-	while (gtk_events_pending())
-	    gtk_main_iteration();
-    } else {
-	if (percentage < 1 || percentage >= 100) {
+
+	if (percentage < 1 || percentage >= 100)
+    {
 	    fprintf(stderr, "\033[2K");
-	} else {
+	}
+    else
+    {
 	    gchar pbar[] = "----------";
 
 	    memset(pbar, '#', percentage / 10);
@@ -232,76 +91,12 @@ void shell_status_set_percentage(gint percentage)
 	    fprintf(stderr, "\r\033[40;37;1m%3d%% \033[40;34;1m"
 		    "%s\033[0m\r", percentage, pbar);
 	}
-    }
-}
 
-void shell_view_set_enabled(gboolean setting)
-{
-    if (!params.gui_running)
-	return;
-
-    if (setting) {
-	shell->_pulses = 0;
-	widget_set_cursor(shell->window, GDK_LEFT_PTR);
-    } else {
-	widget_set_cursor(shell->window, GDK_WATCH);
-    }
-
-    gtk_widget_set_sensitive(shell->hpaned, setting);
-    shell_action_set_enabled("ViewMenuAction", setting);
-    shell_action_set_enabled("RefreshAction", setting);
-    shell_action_set_enabled("CopyAction", setting);
-    shell_action_set_enabled("ReportAction", setting);
-    shell_action_set_enabled("SyncManagerAction", setting && sync_manager_count_entries() > 0);
-    shell_action_set_enabled("SaveGraphAction",
-			     setting ? shell->view_type ==
-			     SHELL_VIEW_PROGRESS : FALSE);
-}
-
-void shell_status_set_enabled(gboolean setting)
-{
-    if (!params.gui_running)
-	return;
-
-    if (setting)
-	gtk_widget_show(shell->progress);
-    else {
-	gtk_widget_hide(shell->progress);
-	shell_view_set_enabled(TRUE);
-
-	shell_status_update("Done.");
-    }
-}
-
-void shell_do_reload(void)
-{
-    if (!params.gui_running || !shell->selected)
-	return;
-
-    shell_action_set_enabled("RefreshAction", FALSE);
-    shell_action_set_enabled("CopyAction", FALSE);
-    shell_action_set_enabled("ReportAction", FALSE);
-
-    shell_status_set_enabled(TRUE);
-
-    module_entry_reload(shell->selected);
-    module_selected(NULL);
-
-    shell_action_set_enabled("RefreshAction", TRUE);
-    shell_action_set_enabled("CopyAction", TRUE);
-    shell_action_set_enabled("ReportAction", TRUE);
 }
 
 void shell_status_update(const gchar * message)
 {
-    if (params.gui_running) {
-	gtk_label_set_markup(GTK_LABEL(shell->status), message);
-	gtk_progress_bar_pulse(GTK_PROGRESS_BAR(shell->progress));
-	while (gtk_events_pending())
-	    gtk_main_iteration();
-    } else {
 	fprintf(stderr, "\033[2K\033[40;37;1m %s\033[0m\r", message);
-    }
 }
 
 static void destroy_me(void)
@@ -545,10 +340,6 @@ void shell_init(GSList * modules)
 
     create_window();
 
-    shell_action_set_property("CopyAction", "is-important", TRUE);
-    shell_action_set_property("RefreshAction", "is-important", TRUE);
-    shell_action_set_property("ReportAction", "is-important", TRUE);
-
     shell->tree = tree_new();
     shell->info = info_tree_new(FALSE);
     shell->moreinfo = info_tree_new(TRUE);
@@ -570,7 +361,7 @@ void shell_init(GSList * modules)
     gtk_notebook_set_show_tabs(GTK_NOTEBOOK(shell->notebook), FALSE);
     gtk_notebook_set_show_border(GTK_NOTEBOOK(shell->notebook), FALSE);
 
-    shell_status_set_enabled(TRUE);
+
     shell_status_update("Loading modules...");
 
     shell->tree->modules = modules ? modules : modules_load_all();
@@ -585,19 +376,6 @@ void shell_init(GSList * modules)
     gtk_widget_hide(shell->note->frame);
 
     shell_status_update("Done.");
-    shell_status_set_enabled(FALSE);
-
-    shell_action_set_enabled("RefreshAction", FALSE);
-    shell_action_set_enabled("CopyAction", FALSE);
-    shell_action_set_enabled("SaveGraphAction", FALSE);
-    shell_action_set_active("SidePaneAction", TRUE);
-    shell_action_set_active("ToolbarAction", TRUE);
-    
-#ifndef HAS_LIBSOUP
-    shell_action_set_enabled("SyncManagerAction", FALSE);
-#else
-    shell_action_set_enabled("SyncManagerAction", sync_manager_count_entries() > 0);
-#endif
 }
 
 static gboolean update_field(gpointer data)
@@ -756,7 +534,6 @@ static void set_view_type(ShellViewType viewtype, gboolean reload)
     gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(shell->info->view), FALSE);
 
     /* turn off the save graphic action */
-    shell_action_set_enabled("SaveGraphAction", FALSE);
 
     switch (viewtype) {
     default:
@@ -785,7 +562,6 @@ static void set_view_type(ShellViewType viewtype, gboolean reload)
 	gtk_widget_show(shell->notebook);
 	/* fallthrough */
     case SHELL_VIEW_PROGRESS:
-	shell_action_set_enabled("SaveGraphAction", TRUE);
 	
 	if (!reload) {
   	  gtk_tree_view_column_set_visible(shell->info->col_progress, TRUE);
@@ -1280,7 +1056,6 @@ static void module_selected(gpointer data)
     if (entry && !entry->selected) {
 	gchar *title;
 
-	shell_status_set_enabled(TRUE);
 	shell_status_update("Updating...");
 
 	entry->selected = TRUE;
@@ -1297,19 +1072,14 @@ static void module_selected(gpointer data)
         RANGE_SET_VALUE(moreinfo, hscrollbar, 0.0);
 
 	shell_status_update("Done.");
-	shell_status_set_enabled(FALSE);
 
 	title = g_strdup_printf("%s - System Information", entry->name);
 	gtk_window_set_title(GTK_WINDOW(shell->window), title);
 	g_free(title);
 
-	shell_action_set_enabled("RefreshAction", TRUE);
-	shell_action_set_enabled("CopyAction", TRUE);
     } else {
 	gtk_window_set_title(GTK_WINDOW(shell->window),
 			     "System Information");
-	shell_action_set_enabled("RefreshAction", FALSE);
-	shell_action_set_enabled("CopyAction", FALSE);
 
 	gtk_tree_store_clear(GTK_TREE_STORE(shell->info->model));
 	set_view_type(SHELL_VIEW_NORMAL, FALSE);

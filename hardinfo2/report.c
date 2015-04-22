@@ -445,15 +445,15 @@ report_create_inner_from_module_list(ReportContext * ctx, GSList * modules)
 	ShellModule *module = (ShellModule *) modules->data;
 	GSList *entries;
 
-	if (!params.gui_running)
-	    fprintf(stderr, "\033[40;32m%s\033[0m\n", module->name);
+
+	fprintf(stderr, "\033[40;32m%s\033[0m\n", module->name);
 
 	report_title(ctx, module->name);
 
 	for (entries = module->entries; entries; entries = entries->next) {
 	    ShellModuleEntry *entry = (ShellModuleEntry *) entries->data;
 
-	    if (!params.gui_running)
+
 		fprintf(stderr, "\033[2K\033[40;32;1m %s\033[0m\n",
 			entry->name);
 
@@ -649,12 +649,8 @@ void report_dialog_show(GtkTreeModel * model, GtkWidget * parent)
     if (gtk_dialog_run(GTK_DIALOG(rd->dialog)) == GTK_RESPONSE_ACCEPT) {
 	shell_status_update("Generating report...");
 	gtk_widget_hide(rd->dialog);
-	shell_view_set_enabled(FALSE);
-	shell_status_set_enabled(TRUE);
 
-	success = report_generate(rd);
-
-	shell_status_set_enabled(FALSE);
+	success = report_generate(rd);rd
 
 	if (success)
 	    shell_status_update("Report saved.");

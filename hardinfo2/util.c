@@ -33,7 +33,7 @@
 #include <string.h>
 #include <shell.h>
 #include <iconcache.h>
-#include <hardinfo.h>
+#include "hardinfo.h"
 #include <gtk/gtk.h>
 
 #include <binreloc.h>
@@ -251,7 +251,22 @@ gchar *file_chooser_build_filename(GtkWidget * chooser, gchar * extension)
 
     return retval;
 }
+void parameters_init(int *argc, char ***argv, ProgramParameters * param)
+{
+	if (*argc >= 2) {
+		g_print("Unrecognized arguments.\n"
+						"Try ``%s --help'' for more information.\n", *(argv)[0]);
+		exit(1);
+	}
 
+	param->argv0 = *(argv)[0];
+
+	gchar *confdir = g_build_filename(g_get_home_dir(), ".hardinfo", NULL);
+	if (!g_file_test(confdir, G_FILE_TEST_EXISTS)) {
+		mkdir(confdir, 0744);
+	}
+	g_free(confdir);
+}
 gboolean binreloc_init(gboolean try_hardcoded)
 {
     GError *error = NULL;
@@ -331,30 +346,12 @@ log_handler(const gchar * log_domain,
 	    GLogLevelFlags log_level,
 	    const gchar * message, gpointer user_data)
 {
-    if (!params.gui_running) {
+
 	/* No GUI running: spit the message to the terminal */
 	g_print("\n\n*** %s: %s\n\n",
 		(log_level & G_LOG_FLAG_FATAL) ? "Error" : "Warning",
 		message);
-    } else {
-	/* Hooray! We have a GUI running! */
-	GtkWidget *dialog;
 
-	dialog = gtk_message_dialog_new_with_markup(NULL, GTK_DIALOG_MODAL,
-						    (log_level &
-						     G_LOG_FLAG_FATAL) ?
-						    GTK_MESSAGE_ERROR :
-						    GTK_MESSAGE_WARNING,
-						    GTK_BUTTONS_CLOSE,
-						    "<big><b>%s</b></big>\n\n%s",
-						    (log_level &
-						     G_LOG_FLAG_FATAL) ?
-						    "Fatal Error" :
-						    "Warning", message);
-
-	gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_widget_destroy(dialog);
-    }
 }
 
 void open_url(gchar * url)
@@ -464,21 +461,6 @@ static ShellModule *module_load(gchar * filename)
 
     module = g_new0(ShellModule, 1);
 
-    if (params.gui_running) {
-	gchar *tmpicon;
-
-	tmpicon = g_strdup(filename);
-	gchar *dot = g_strrstr(tmpicon, "." G_MODULE_SUFFIX);
-
-	*dot = '\0';
-
-	tmp = g_strdup_printf("%s.png", tmpicon);
-	module->icon = icon_cache_get_pixbuf(tmp);
-
-	g_free(tmp);
-	g_free(tmpicon);
-    }
-
     tmp = g_build_filename(params.path_lib, "modules", filename, NULL);
     module->dll = g_module_open(tmp, G_MODULE_BIND_LAZY);
     g_free(tmp);
@@ -513,10 +495,6 @@ static ShellModule *module_load(gchar * filename)
 	entries = get_module_entries();
 	while (entries[i].name) {
 	    ShellModuleEntry *entry = g_new0(ShellModuleEntry, 1);
-
-	    if (params.gui_running) {
-		entry->icon = icon_cache_get_pixbuf(entries[i].icon);
-	    }
 
 	    g_module_symbol(module->dll, "hi_more_info",
 			    (gpointer) & (entry->morefunc));
@@ -636,49 +614,10 @@ static GSList *modules_check_deps(GSList * modules)
 		}
 
 		if (!found) {
-		    if (params.autoload_deps) {
-			ShellModule *mod = module_load(deps[i]);
 
-			if (mod)
-			    modules = g_slist_append(modules, mod);
-			modules = modules_check_deps(modules);	/* re-check dependencies */
-
-			break;
-		    }
-
-		    if (params.gui_running) {
-			GtkWidget *dialog;
-
-			dialog = gtk_message_dialog_new(NULL,
-							GTK_DIALOG_DESTROY_WITH_PARENT,
-							GTK_MESSAGE_QUESTION,
-							GTK_BUTTONS_NONE,
-							"Module \"%s\" depends on module \"%s\", load it?",
-							module->name,
-							deps[i]);
-			gtk_dialog_add_buttons(GTK_DIALOG(dialog),
-					       GTK_STOCK_NO,
-					       GTK_RESPONSE_REJECT,
-					       GTK_STOCK_OPEN,
-					       GTK_RESPONSE_ACCEPT, NULL);
-
-			if (gtk_dialog_run(GTK_DIALOG(dialog)) ==
-			    GTK_RESPONSE_ACCEPT) {
-			    ShellModule *mod = module_load(deps[i]);
-
-			    if (mod)
-				modules = g_slist_prepend(modules, mod);
-			    modules = modules_check_deps(modules);	/* re-check dependencies */
-			} else {
-			    g_error("HardInfo cannot run without loading the additional module.");
-			    exit(1);
-			}
-
-			gtk_widget_destroy(dialog);
-		    } else {
 			g_error("Module \"%s\" depends on module \"%s\".",
 				module->name, deps[i]);
-		    }
+
 		}
 	    }
 	}
@@ -890,7 +829,6 @@ void module_entry_scan_all_except(ModuleEntry * entries, gint except_entry)
     void (*scan_callback) (gboolean reload);
     gchar *text;
 
-    shell_view_set_enabled(FALSE);
 
     for (entry = entries[0]; entry.name; entry = entries[++i]) {
 	if (i == except_entry)
@@ -904,8 +842,6 @@ void module_entry_scan_all_except(ModuleEntry * entries, gint except_entry)
 	    scan_callback(FALSE);
 	}
     }
-
-    shell_view_set_enabled(TRUE);
     shell_status_update("Done.");
 }
 

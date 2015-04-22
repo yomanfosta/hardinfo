@@ -92,7 +92,7 @@ void cb_donate()
 
 void cb_refresh()
 {
-    shell_do_reload();
+    return;
 }
 
 void cb_copy_to_clipboard()
@@ -122,16 +122,14 @@ void cb_side_pane()
 {
     gboolean visible;
 
-    visible = shell_action_get_active("SidePaneAction");
-    shell_set_side_pane_visible(visible);
+    visible = FALSE;
 }
 
 void cb_toolbar()
 {
     gboolean visible;
 
-    visible = shell_action_get_active("ToolbarAction");
-    shell_ui_manager_set_visible("/MainMenuBarAction", visible);
+    visible = FALSE;
 }
 
 void cb_about_module(GtkAction * action)
@@ -253,13 +251,9 @@ void cb_about()
 void cb_generate_report()
 {
     Shell *shell = shell_get_main_shell();
-    gboolean btn_refresh = shell_action_get_enabled("RefreshAction");
-    gboolean btn_copy = shell_action_get_enabled("CopyAction");
-
     report_dialog_show(shell->tree->model, shell->window);
 
-    shell_action_set_enabled("RefreshAction", btn_refresh);
-    shell_action_set_enabled("CopyAction", btn_copy);
+
 }
 
 void cb_quit(void)

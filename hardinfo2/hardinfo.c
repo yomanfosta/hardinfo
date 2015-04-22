@@ -21,17 +21,22 @@
 #include "shell.h"
 
 #include "report.h"
+#include "hardinfo.h"
 #include "iconcache.h"
 #include "stock.h"
 #include "vendor.h"
 
 #include "binreloc.h"
-#include "hardinfo.h"
+
+
+ProgramParameters params = { 0 };
 
 int main(int argc, char **argv)
 {
     DEBUG("HardInfo version " VERSION ". Debug version.");
 	DEBUG("  Debugging is enabled.");
+
+	GSList *modules;
 
     /* initialize the binreloc library, so we can load program data */
     if (!binreloc_init(FALSE))
