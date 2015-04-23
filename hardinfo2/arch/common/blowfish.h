@@ -50,8 +50,6 @@ benchmark_fish(void)
         g_free(bdata_path);
         return;
     }
-
-    shell_view_set_enabled(FALSE);
     shell_status_update("Performing Blowfish benchmark...");
 
     elapsed = benchmark_parallel_for(0, 50000, parallel_blowfish, tmpsrc);

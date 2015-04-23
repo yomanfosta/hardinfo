@@ -180,6 +180,4 @@ void		shell_status_pulse(void);
 void		shell_status_set_percentage(gint percentage);
 void		shell_status_set_enabled(gboolean setting);
 
-void		shell_view_set_enabled(gboolean setting);
-
 #endif				/* __SHELL_H__ */

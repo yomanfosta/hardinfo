@@ -650,7 +650,7 @@ void report_dialog_show(GtkTreeModel * model, GtkWidget * parent)
 	shell_status_update("Generating report...");
 	gtk_widget_hide(rd->dialog);
 
-	success = report_generate(rd);rd
+	success = report_generate(rd);
 
 	if (success)
 	    shell_status_update("Report saved.");

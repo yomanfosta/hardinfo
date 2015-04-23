@@ -7,8 +7,8 @@
 #define PLATFORM "Linux"
 #define KERNEL   "3.2.0-57-generic"
 #define HOSTNAME "Winterfell"
-#define PREFIX "/usr/share/hardinfo/"
-#define LIBPREFIX "/usr/lib/hardinfo/"
+#define PREFIX "./"
+#define LIBPREFIX "./"
 #define HAS_LINUX_WE
 #define DEBUG(msg,...) fprintf(stderr, "*** %s:%d (%s) *** " msg "\n", \
                                __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)

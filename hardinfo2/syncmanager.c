@@ -124,13 +124,11 @@ void sync_manager_show(void)
     err_quark = g_quark_from_static_string("syncmanager");
 
     if (gtk_dialog_run(GTK_DIALOG(sd->dialog)) == GTK_RESPONSE_ACCEPT) {
-	shell_view_set_enabled(FALSE);
 	shell_status_set_enabled(TRUE);
 
 	sync_dialog_start_sync(sd);
 
 	shell_status_set_enabled(FALSE);
-	shell_view_set_enabled(TRUE);
     }
 
     sync_dialog_destroy(sd);

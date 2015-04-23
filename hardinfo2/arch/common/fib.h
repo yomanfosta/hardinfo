@@ -31,8 +31,7 @@ benchmark_fib(void)
 {
     GTimer *timer = g_timer_new();
     gdouble elapsed;
-    
-    shell_view_set_enabled(FALSE);
+
     shell_status_update("Calculating the 42nd Fibonacci number...");
     
     g_timer_reset(timer);

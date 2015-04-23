@@ -64,9 +64,7 @@ benchmark_cryptohash(void)
     if (!g_file_get_contents(bdata_path, &tmpsrc, NULL, NULL)) {
         g_free(bdata_path);
         return;
-    }     
-    
-    shell_view_set_enabled(FALSE);
+    }
     shell_status_update("Running CryptoHash benchmark...");
         
     elapsed = benchmark_parallel_for(0, 5000, cryptohash_for, tmpsrc);
