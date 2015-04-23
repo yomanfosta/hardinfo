@@ -20,7 +20,6 @@
 #define __HARDINFO_H__
 
 #include <gtk/gtk.h>
-#include "shell.h"
 
 typedef struct _ModuleEntry		ModuleEntry;
 typedef struct _ModuleAbout		ModuleAbout;
@@ -88,7 +87,6 @@ void          nonblock_sleep(guint msec);
 void          open_url(gchar *url);
 GSList	     *modules_load_selected(void);
 GSList       *modules_load_all(void);
-ModuleAbout  *module_get_about(ShellModule *module);
 gchar        *seconds_to_string(unsigned int seconds);
 
 gchar        *h_strdup_cprintf(const gchar *format, gchar *source, ...);
@@ -98,11 +96,6 @@ void          h_hash_table_remove_all (GHashTable *hash_table);
 
 void	      module_entry_scan_all_except(ModuleEntry *entries, gint except_entry);
 void	      module_entry_scan_all(ModuleEntry *entries);
-void	      module_entry_reload(ShellModuleEntry *module_entry);
-void	      module_entry_scan(ShellModuleEntry *module_entry);
-gchar	     *module_entry_function(ShellModuleEntry *module_entry);
-const gchar  *module_entry_get_note(ShellModuleEntry *module_entry);
-
 /* BinReloc stuff */
 gboolean binreloc_init(gboolean try_hardcoded);
 

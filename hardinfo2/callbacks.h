@@ -21,19 +21,6 @@
 
 #include <gtk/gtk.h>
 
-void cb_about();
-void cb_about_module(GtkAction *action);
-void cb_generate_report();
-void cb_save_graphic();
-void cb_quit();
-void cb_refresh();
-void cb_copy_to_clipboard();
-void cb_side_pane();
-void cb_toolbar();
-void cb_open_web_page();
-void cb_open_online_docs();
 void cb_sync_manager();
-void cb_report_bug();
-void cb_donate();
 
 #endif	/* __CALLBACKS_H__ */

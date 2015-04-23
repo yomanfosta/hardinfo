@@ -34,7 +34,6 @@ static void
 benchmark_raytrace(void)
 {
     gdouble elapsed = 0;
-    shell_status_update("Performing John Walker's FBENCH...");
     
     elapsed = benchmark_parallel_for(0, 1000, parallel_raytrace, NULL);
     

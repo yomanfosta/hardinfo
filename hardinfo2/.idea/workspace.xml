@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" assignedExecutableTargets="true" buildAllGenerated="true">
     <generated>
-      <config projectName="hardinfo2" targetName="hardinfo2" />
       <config projectName="hardinfo2" targetName="hardinfo_mod" />
+      <config projectName="hardinfo2" targetName="hardinfo2" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="false" GENERATION_PASS_SYSTEM_ENVIRONMENT="true">
@@ -32,33 +32,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="benchmark.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/benchmark.c">
+      <file leaf-file-name="report.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/report.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.225806">
-              <caret line="211" column="29" selection-start-line="211" selection-start-column="23" selection-end-line="211" selection-end-column="29" />
+            <state vertical-scroll-proportion="-9.258064">
+              <caret line="544" column="1" selection-start-line="544" selection-start-column="1" selection-end-line="544" selection-end-column="1" />
               <folding>
-                <element signature="e#810#831#0" expanded="true" />
+                <element signature="e#0#808#0" expanded="false" />
+                <element signature="e#810#829#0" expanded="true" />
+                <element signature="e#1251#1316#0" expanded="false" />
+                <element signature="e#1851#1942#0" expanded="false" />
+                <element signature="e#1965#2079#0" expanded="false" />
+                <element signature="e#2373#2624#0" expanded="false" />
+                <element signature="e#4121#5772#0" expanded="false" />
+                <element signature="e#4915#5000#0" expanded="true" />
+                <element signature="e#5681#5682#0" expanded="true" />
+                <element signature="e#5774#6623#0" expanded="false" />
+                <element signature="e#6625#6758#0" expanded="false" />
+                <element signature="e#6760#7013#0" expanded="false" />
+                <element signature="e#8660#9836#0" expanded="false" />
+                <element signature="e#9838#10513#0" expanded="false" />
+                <element signature="e#10738#11473#0" expanded="false" />
+                <element signature="e#11475#12011#0" expanded="false" />
+                <element signature="e#12013#12150#0" expanded="false" />
+                <element signature="e#12152#12374#0" expanded="false" />
+                <element signature="e#12377#12861#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shell.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shell.h">
+      <file leaf-file-name="blowfish.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blowfish.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="180" column="55" selection-start-line="180" selection-start-column="55" selection-end-line="180" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="syncmanager.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/syncmanager.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.451613">
-              <caret line="130" column="36" selection-start-line="130" selection-start-column="36" selection-end-line="130" selection-end-column="36" />
+              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -68,17 +76,7 @@
         <entry file="file://$PROJECT_DIR$/arch/common/blowfish.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="5" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="display.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arch/common/display.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+              <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -88,7 +86,7 @@
         <entry file="file://$PROJECT_DIR$/arch/common/cryptohash.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -127,8 +125,28 @@
       <file leaf-file-name="nqueens.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/arch/common/nqueens.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3164557">
-              <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.8309859">
+              <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modules.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/arch/linux/common/modules.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="shell.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shell.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.935484">
+              <caret line="177" column="0" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,17 +157,22 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch" />
-        <option value="$PROJECT_DIR$/hardinfo.c" />
-        <option value="$PROJECT_DIR$/hardinfo.h" />
-        <option value="$PROJECT_DIR$/shell.c" />
-        <option value="$PROJECT_DIR$/util.c" />
-        <option value="$PROJECT_DIR$/callbacks.c" />
-        <option value="$PROJECT_DIR$/report.c" />
         <option value="$PROJECT_DIR$/config.h" />
-        <option value="$PROJECT_DIR$/shell.h" />
         <option value="$PROJECT_DIR$/syncmanager.c" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/callbacks.c" />
+        <option value="$PROJECT_DIR$/callbacks.h" />
+        <option value="$PROJECT_DIR$/shell.c" />
+        <option value="$PROJECT_DIR$/hardinfo.c" />
+        <option value="$PROJECT_DIR$/Makefile" />
+        <option value="$PROJECT_DIR$/hardinfo.h" />
+        <option value="$PROJECT_DIR$/report.h" />
+        <option value="$PROJECT_DIR$/util.c" />
+        <option value="$PROJECT_DIR$/arch/linux/armv4l/modules.h" />
+        <option value="$PROJECT_DIR$/arch/linux/common/modules.h" />
+        <option value="$PROJECT_DIR$/shell.h" />
+        <option value="$PROJECT_DIR$/report.c" />
         <option value="$PROJECT_DIR$/arch/common/blowfish.h" />
         <option value="$PROJECT_DIR$/arch/common/cryptohash.h" />
         <option value="$PROJECT_DIR$/arch/common/raytrace.h" />
@@ -168,6 +191,7 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
+    <option name="x" value="1280" />
     <option name="y" value="24" />
     <option name="width" value="1280" />
     <option name="height" value="776" />
@@ -224,46 +248,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="arch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hardinfo2" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hardinfo2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="linux" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hardinfo2" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hardinfo2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="linux" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -341,7 +325,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="776" extended-state="6" />
+    <frame x="1280" y="24" width="1280" height="776" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2545744" sideWeight="0.49411765" order="0" side_tool="false" content_ui="combo" />
@@ -371,70 +355,24 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/hardinfo.h</url>
-          <line>80</line>
+          <line>79</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/callbacks.c</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/report.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.08">
-          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shell.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.645161">
-          <caret line="831" column="20" selection-start-line="831" selection-start-column="20" selection-end-line="831" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/callbacks.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.645161">
-          <caret line="38" column="25" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/report.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.645161">
-          <caret line="651" column="0" selection-start-line="651" selection-start-column="0" selection-end-line="651" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hardinfo.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.806452">
-          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-          <folding>
-            <element signature="e#810#828#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -462,31 +400,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardinfo.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.967742">
-          <caret line="80" column="33" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="33" />
-          <folding>
-            <element signature="e#2418#2451#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.129032">
-          <caret line="814" column="1" selection-start-line="814" selection-start-column="1" selection-end-line="814" selection-end-column="1" />
-          <folding>
-            <element signature="e#2549#3199#0" expanded="false" />
-            <element signature="e#3201#3503#0" expanded="false" />
-            <element signature="e#3505#3652#0" expanded="false" />
-            <element signature="e#3654#3784#0" expanded="false" />
-            <element signature="e#3855#4225#0" expanded="false" />
-            <element signature="e#20250#20282#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -503,41 +416,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/benchmark.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.225806">
-          <caret line="211" column="29" selection-start-line="211" selection-start-column="23" selection-end-line="211" selection-end-column="29" />
-          <folding>
-            <element signature="e#810#831#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shell.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="180" column="55" selection-start-line="180" selection-start-column="55" selection-end-line="180" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/syncmanager.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.451613">
+        <state vertical-scroll-proportion="0.27088606">
           <caret line="130" column="36" selection-start-line="130" selection-start-column="36" selection-end-line="130" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arch/common/blowfish.h">
+    <entry file="file://$PROJECT_DIR$/benchmark.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="5" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
-          <folding />
+        <state vertical-scroll-proportion="0.33164558">
+          <caret line="211" column="29" selection-start-line="211" selection-start-column="23" selection-end-line="211" selection-end-column="29" />
+          <folding>
+            <element signature="e#810#831#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/arch/common/display.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/callbacks.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/callbacks.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardinfo.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.225806">
+          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardinfo.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="97" column="58" selection-start-line="97" selection-start-column="58" selection-end-line="97" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.032258">
+          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.129032">
+          <caret line="743" column="5" selection-start-line="743" selection-start-column="5" selection-end-line="743" selection-end-column="5" />
+          <folding>
+            <element signature="e#2549#3199#0" expanded="false" />
+            <element signature="e#3201#3503#0" expanded="false" />
+            <element signature="e#3505#3652#0" expanded="false" />
+            <element signature="e#3786#3853#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.225806">
+          <caret line="13" column="58" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arch/linux/armv4l/modules.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
@@ -545,10 +527,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/arch/linux/common/modules.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shell.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.935484">
+          <caret line="177" column="0" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.258064">
+          <caret line="544" column="1" selection-start-line="544" selection-start-column="1" selection-end-line="544" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#808#0" expanded="false" />
+            <element signature="e#810#829#0" expanded="true" />
+            <element signature="e#1251#1316#0" expanded="false" />
+            <element signature="e#1851#1942#0" expanded="false" />
+            <element signature="e#1965#2079#0" expanded="false" />
+            <element signature="e#2373#2624#0" expanded="false" />
+            <element signature="e#4121#5772#0" expanded="false" />
+            <element signature="e#4915#5000#0" expanded="true" />
+            <element signature="e#5681#5682#0" expanded="true" />
+            <element signature="e#5774#6623#0" expanded="false" />
+            <element signature="e#6625#6758#0" expanded="false" />
+            <element signature="e#6760#7013#0" expanded="false" />
+            <element signature="e#8660#9836#0" expanded="false" />
+            <element signature="e#9838#10513#0" expanded="false" />
+            <element signature="e#10738#11473#0" expanded="false" />
+            <element signature="e#11475#12011#0" expanded="false" />
+            <element signature="e#12013#12150#0" expanded="false" />
+            <element signature="e#12152#12374#0" expanded="false" />
+            <element signature="e#12377#12861#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blowfish.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arch/common/blowfish.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/arch/common/cryptohash.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -579,8 +621,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/arch/common/nqueens.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3164557">
-          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.8309859">
+          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
           <folding />
         </state>
       </provider>

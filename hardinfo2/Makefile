@@ -13,8 +13,8 @@ CCSLOW = gcc -O0 -g
 
 # ----------------------------------------------------------------------------
 
-OBJECTS = hardinfo.o shell.o util.o iconcache.o loadgraph.o  \
-		menu.o stock.o callbacks.o expr.o report.o binreloc.o \
+OBJECTS = hardinfo.o util.o iconcache.o loadgraph.o  \
+		stock.o callbacks.o expr.o report.o binreloc.o \
 		vendor.o socket.o syncmanager.o
 BENCHMARK_OBJECTS = fbench.o sha1.o blowfish.o md5.o nqueens.o fftbench.o
 

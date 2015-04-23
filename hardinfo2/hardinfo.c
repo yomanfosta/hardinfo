@@ -18,7 +18,6 @@
 
 #include <stdio.h>
 #include "config.h"
-#include "shell.h"
 
 #include "report.h"
 #include "hardinfo.h"

@@ -33,7 +33,6 @@ static void
 benchmark_fft(void)
 {
     gdouble elapsed = 0;
-    shell_status_update("Running FFT benchmark...");
         
     fft_bench_init();
     elapsed = benchmark_parallel_for(0, 4, fft_for, NULL);

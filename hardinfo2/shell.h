@@ -120,7 +120,7 @@ struct _ShellModule {
     gchar		*name;
     GdkPixbuf		*icon;
     GModule		*dll;
-    
+
     guchar		 weight;
 
     GSList		*entries;
@@ -175,8 +175,6 @@ void		shell_set_note_from_entry(ShellModuleEntry *entry);
 void		shell_ui_manager_set_visible(const gchar *path,
                                              gboolean setting);
 
-void		shell_status_update(const gchar *message);
-void		shell_status_pulse(void);
 void		shell_status_set_percentage(gint percentage);
 void		shell_status_set_enabled(gboolean setting);
 

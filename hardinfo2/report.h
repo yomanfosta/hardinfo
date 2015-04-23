@@ -39,9 +39,9 @@ typedef struct _ReportDialog	ReportDialog;
 typedef struct _ReportContext	ReportContext;
 
 struct _ReportContext {
-  ShellModuleEntry	*entry;
+    ShellModuleEntry	*entry;
   gchar			*output;
-  
+
   void (*header)      	(ReportContext *ctx);
   void (*footer)      	(ReportContext *ctx);
   void (*title)      	(ReportContext *ctx, gchar *text);
@@ -50,8 +50,7 @@ struct _ReportContext {
   void (*keyvalue)   	(ReportContext *ctx, gchar *key, gchar *value);
   
   ReportFormat		format;
-  
-  gboolean		is_image_enabled;
+
   gboolean		first_table;
 
   gboolean		show_column_headers;
@@ -71,10 +70,8 @@ struct _ReportDialog {
   GtkTreeModel *model;
 };
 
-void		 report_dialog_show();
 
 ReportContext	*report_context_html_new();
-ReportContext	*report_context_text_new();
 
 void		 report_header		(ReportContext *ctx);
 void		 report_footer		(ReportContext *ctx);

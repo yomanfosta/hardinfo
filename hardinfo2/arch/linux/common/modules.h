@@ -67,7 +67,6 @@ scan_modules_do(void)
 	FILE *modi;
 	glong memory;
 
-	shell_status_pulse();
 
 	buf = buffer;
 

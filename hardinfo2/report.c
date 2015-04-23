@@ -24,13 +24,13 @@
 #include <hardinfo.h>
 #include <config.h>
 
+
 static ReportDialog *report_dialog_new(GtkTreeModel * model,
 				       GtkWidget * parent);
 static void set_all_active(ReportDialog * rd, gboolean setting);
 
 static FileTypes file_types[] = {
     {"HTML (*.html)", "text/html", ".html", report_context_html_new},
-    {"Plain Text (*.txt)", "text/plain", ".txt", report_context_text_new},
     {NULL, NULL, NULL, NULL}
 };
 
@@ -94,11 +94,6 @@ void report_context_configure(ReportContext * ctx, GKeyFile * keyfile)
 
        so i don't forget how to encode the images inside the html files:
        http://en.wikipedia.org/wiki/Data:_URI_scheme */
-
-    ctx->is_image_enabled = (g_key_file_get_boolean(keyfile,
-						    group,
-						    "ViewType",
-						    NULL) == SHELL_VIEW_PROGRESS);
 
     
     keys = g_key_file_get_keys(keyfile, group, NULL, NULL);
@@ -316,78 +311,6 @@ report_html_key_value(ReportContext * ctx, gchar * key, gchar * value)
     }
 }
 
-static void report_text_header(ReportContext * ctx)
-{
-    if (ctx->output)
-	g_free(ctx->output);
-
-    ctx->output = g_strdup("");
-}
-
-static void report_text_footer(ReportContext * ctx)
-{
-}
-
-static void report_text_title(ReportContext * ctx, gchar * text)
-{
-    gchar *str = (gchar *) ctx->output;
-    int i = strlen(text);
-
-    str = h_strdup_cprintf("\n%s\n", str, text);
-    for (; i; i--)
-	str = h_strconcat(str, "*", NULL);
-
-    str = h_strconcat(str, "\n\n", NULL);
-    ctx->output = str;
-}
-
-static void report_text_subtitle(ReportContext * ctx, gchar * text)
-{
-    gchar *str = ctx->output;
-    int i = strlen(text);
-
-    str = h_strdup_cprintf("\n%s\n", str, text);
-    for (; i; i--)
-	str = h_strconcat(str, "-", NULL);
-
-    str = h_strconcat(str, "\n\n", NULL);
-    ctx->output = str;
-}
-
-static void report_text_subsubtitle(ReportContext * ctx, gchar * text)
-{
-    ctx->output = h_strdup_cprintf("-%s-\n", ctx->output, text);
-}
-
-static void
-report_text_key_value(ReportContext * ctx, gchar * key, gchar * value)
-{
-    gint columns = report_get_visible_columns(ctx);
-    gchar **values;
-    gint i;
-    
-    if (columns == 2) {
-      if (strlen(value))
-          ctx->output = h_strdup_cprintf("%s\t\t: %s\n", ctx->output, key, value);
-      else
-          ctx->output = h_strdup_cprintf("%s\n", ctx->output, key);
-    } else {
-      values = g_strsplit(value, "|", columns);
-      
-      ctx->output = h_strdup_cprintf("%s\t", ctx->output, key);
-      
-      for (i = columns - 2; i >= 0; i--) {
-        ctx->output = h_strdup_cprintf("%s\t",
-                                       ctx->output,
-                                       values[i]);
-      }
-
-      ctx->output = h_strdup_cprintf("\n", ctx->output);
-      
-      g_strfreev(values);
-    }
-}
-
 static GSList *report_create_module_list_from_dialog(ReportDialog * rd)
 {
     ShellModule *module;
@@ -526,27 +449,6 @@ ReportContext *report_context_html_new()
     return ctx;
 }
 
-ReportContext *report_context_text_new()
-{
-    ReportContext *ctx;
-
-    ctx = g_new0(ReportContext, 1);
-    ctx->header = report_text_header;
-    ctx->footer = report_text_footer;
-    ctx->title = report_text_title;
-    ctx->subtitle = report_text_subtitle;
-    ctx->subsubtitle = report_text_subsubtitle;
-    ctx->keyvalue = report_text_key_value;
-
-    ctx->output = g_strdup("");
-    ctx->format = REPORT_FORMAT_TEXT;
-    
-    ctx->column_titles = g_hash_table_new(g_str_hash, g_str_equal);
-    ctx->first_table = TRUE;
-
-    return ctx;
-}
-
 void report_context_free(ReportContext * ctx)
 {
     g_hash_table_destroy(ctx->column_titles);
@@ -563,6 +465,7 @@ void report_create_from_module_list(ReportContext * ctx, GSList * modules)
 
     report_footer(ctx);
 }
+
 
 gchar *report_create_from_module_list_format(GSList * modules,
 					     ReportFormat format)
@@ -639,233 +542,4 @@ static gboolean report_generate(ReportDialog * rd)
     g_free(file);
 
     return TRUE;
-}
-
-void report_dialog_show(GtkTreeModel * model, GtkWidget * parent)
-{
-    gboolean success;
-    ReportDialog *rd = report_dialog_new(model, parent);
-
-    if (gtk_dialog_run(GTK_DIALOG(rd->dialog)) == GTK_RESPONSE_ACCEPT) {
-	shell_status_update("Generating report...");
-	gtk_widget_hide(rd->dialog);
-
-	success = report_generate(rd);
-
-	if (success)
-	    shell_status_update("Report saved.");
-	else
-	    shell_status_update("Error while creating the report.");
-    }
-
-    set_all_active(rd, FALSE);
-    gtk_widget_destroy(rd->dialog);
-    g_free(rd);
-}
-
-static void
-set_children_active(GtkTreeModel * model, GtkTreeIter * iter,
-		    gboolean setting)
-{
-    if (gtk_tree_model_iter_has_child(model, iter)) {
-	gint children = gtk_tree_model_iter_n_children(model, iter);
-
-	gtk_tree_store_set(GTK_TREE_STORE(model), iter, TREE_COL_SEL,
-			   setting, -1);
-
-	for (children--; children >= 0; children--) {
-	    GtkTreeIter child;
-
-	    gtk_tree_model_iter_nth_child(model, &child, iter, children);
-	    gtk_tree_store_set(GTK_TREE_STORE(model), &child, TREE_COL_SEL,
-			       setting, -1);
-	}
-    }
-}
-
-static void set_all_active(ReportDialog * rd, gboolean setting)
-{
-    GtkTreeIter iter;
-    GtkTreeModel *model = rd->model;
-
-    gtk_tree_model_get_iter_first(model, &iter);
-
-    do {
-	set_children_active(model, &iter, setting);
-    } while (gtk_tree_model_iter_next(model, &iter));
-}
-
-static void report_dialog_sel_none(GtkWidget * widget, ReportDialog * rd)
-{
-    set_all_active(rd, FALSE);
-}
-
-static void report_dialog_sel_all(GtkWidget * widget, ReportDialog * rd)
-{
-    set_all_active(rd, TRUE);
-}
-
-static void
-report_dialog_sel_toggle(GtkCellRendererToggle * cellrenderertoggle,
-			 gchar * path_str, ReportDialog * rd)
-{
-    GtkTreeModel *model = rd->model;
-    GtkTreeIter iter;
-    GtkTreePath *path = gtk_tree_path_new_from_string(path_str);
-    gboolean active;
-
-    gtk_tree_model_get_iter(model, &iter, path);
-    gtk_tree_model_get(model, &iter, TREE_COL_SEL, &active, -1);
-
-    active = !active;
-    gtk_tree_store_set(GTK_TREE_STORE(model), &iter, TREE_COL_SEL, active,
-		       -1);
-    set_children_active(model, &iter, active);
-
-    gtk_tree_path_free(path);
-}
-
-static ReportDialog
-    * report_dialog_new(GtkTreeModel * model, GtkWidget * parent)
-{
-    ReportDialog *rd;
-    GtkWidget *dialog;
-    GtkWidget *dialog1_vbox;
-    GtkWidget *scrolledwindow2;
-    GtkWidget *treeview2;
-    GtkWidget *vbuttonbox3;
-    GtkWidget *button3;
-    GtkWidget *button6;
-    GtkWidget *dialog1_action_area;
-    GtkWidget *button8;
-    GtkWidget *button7;
-    GtkWidget *label;
-    GtkWidget *hbox;
-
-    GtkTreeViewColumn *column;
-    GtkCellRenderer *cr_text, *cr_pbuf, *cr_toggle;
-
-    rd = g_new0(ReportDialog, 1);
-
-    dialog = gtk_dialog_new();
-    gtk_window_set_title(GTK_WINDOW(dialog), "Generate Report");
-    gtk_container_set_border_width(GTK_CONTAINER(dialog), 5);
-    gtk_window_set_default_size(GTK_WINDOW(dialog), 420, 260);
-    gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(parent));
-    gtk_window_set_position(GTK_WINDOW(dialog),
-			    GTK_WIN_POS_CENTER_ON_PARENT);
-    gtk_window_set_type_hint(GTK_WINDOW(dialog),
-			     GDK_WINDOW_TYPE_HINT_DIALOG);
-
-    dialog1_vbox = GTK_DIALOG(dialog)->vbox;
-    gtk_box_set_spacing(GTK_BOX(dialog1_vbox), 5);
-    gtk_container_set_border_width(GTK_CONTAINER(dialog1_vbox), 4);
-    gtk_widget_show(dialog1_vbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(dialog1_vbox), hbox, FALSE, FALSE, 0);
-
-    label = gtk_label_new("<big><b>Generate Report</b></big>\n"
-			  "Please choose the information that you wish "
-			  "to view in your report:");
-    gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
-    gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
-    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-
-    gtk_box_pack_start(GTK_BOX(hbox),
-		       icon_cache_get_image("report-large.png"),
-		       FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show_all(hbox);
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(dialog1_vbox), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    scrolledwindow2 = gtk_scrolled_window_new(NULL, NULL);
-    gtk_widget_show(scrolledwindow2);
-    gtk_box_pack_start(GTK_BOX(hbox), scrolledwindow2, TRUE, TRUE,
-		       0);
-    gtk_widget_set_size_request(scrolledwindow2, -1, 200);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow2),
-				   GTK_POLICY_AUTOMATIC,
-				   GTK_POLICY_AUTOMATIC);
-    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
-					(scrolledwindow2), GTK_SHADOW_IN);
-
-    treeview2 = gtk_tree_view_new_with_model(model);
-    gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview2), FALSE);
-    gtk_widget_show(treeview2);
-    gtk_container_add(GTK_CONTAINER(scrolledwindow2), treeview2);
-
-    column = gtk_tree_view_column_new();
-    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview2), column);
-
-    cr_toggle = gtk_cell_renderer_toggle_new();
-    gtk_tree_view_column_pack_start(column, cr_toggle, FALSE);
-    g_signal_connect(cr_toggle, "toggled",
-		     G_CALLBACK(report_dialog_sel_toggle), rd);
-    gtk_tree_view_column_add_attribute(column, cr_toggle, "active",
-				       TREE_COL_SEL);
-
-    cr_pbuf = gtk_cell_renderer_pixbuf_new();
-    gtk_tree_view_column_pack_start(column, cr_pbuf, FALSE);
-    gtk_tree_view_column_add_attribute(column, cr_pbuf, "pixbuf",
-				       TREE_COL_PBUF);
-
-    cr_text = gtk_cell_renderer_text_new();
-    gtk_tree_view_column_pack_start(column, cr_text, TRUE);
-    gtk_tree_view_column_add_attribute(column, cr_text, "markup",
-				       TREE_COL_NAME);
-
-    vbuttonbox3 = gtk_vbutton_box_new();
-    gtk_widget_show(vbuttonbox3);
-    gtk_box_pack_start(GTK_BOX(hbox), vbuttonbox3, FALSE, TRUE, 0);
-    gtk_box_set_spacing(GTK_BOX(vbuttonbox3), 5);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(vbuttonbox3),
-			      GTK_BUTTONBOX_START);
-
-    button3 = gtk_button_new_with_mnemonic("Select _None");
-    gtk_widget_show(button3);
-    gtk_container_add(GTK_CONTAINER(vbuttonbox3), button3);
-    GTK_WIDGET_SET_FLAGS(button3, GTK_CAN_DEFAULT);
-    g_signal_connect(button3, "clicked",
-		     G_CALLBACK(report_dialog_sel_none), rd);
-
-    button6 = gtk_button_new_with_mnemonic("Select _All");
-    gtk_widget_show(button6);
-    gtk_container_add(GTK_CONTAINER(vbuttonbox3), button6);
-    GTK_WIDGET_SET_FLAGS(button6, GTK_CAN_DEFAULT);
-    g_signal_connect(button6, "clicked", G_CALLBACK(report_dialog_sel_all),
-		     rd);
-
-    dialog1_action_area = GTK_DIALOG(dialog)->action_area;
-    gtk_widget_show(dialog1_action_area);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(dialog1_action_area),
-			      GTK_BUTTONBOX_END);
-
-    button8 = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-    gtk_widget_show(button8);
-    gtk_dialog_add_action_widget(GTK_DIALOG(dialog), button8,
-				 GTK_RESPONSE_CANCEL);
-    GTK_WIDGET_SET_FLAGS(button8, GTK_CAN_DEFAULT);
-
-    button7 = gtk_button_new_with_mnemonic("_Generate");
-    gtk_widget_show(button7);
-    gtk_dialog_add_action_widget(GTK_DIALOG(dialog), button7,
-				 GTK_RESPONSE_ACCEPT);
-    GTK_WIDGET_SET_FLAGS(button7, GTK_CAN_DEFAULT);
-
-    rd->dialog = dialog;
-    rd->btn_cancel = button8;
-    rd->btn_generate = button7;
-    rd->btn_sel_all = button6;
-    rd->btn_sel_none = button3;
-    rd->treeview = treeview2;
-    rd->model = model;
-
-    gtk_tree_view_collapse_all(GTK_TREE_VIEW(treeview2));
-    set_all_active(rd, TRUE);
-
-    return rd;
 }
