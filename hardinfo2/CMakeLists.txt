@@ -12,5 +12,5 @@ include_directories(
 link_directories(
 	${GTK_LIBRARY_DIRS}
 )
-set(SOURCE_FILES hardinfo.c binreloc.c report.c)
+set(SOURCE_FILES hardinfo.c binreloc.c report.c benchmark.c)
 add_executable(hardinfo_mod ${SOURCE_FILES})

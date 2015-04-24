@@ -369,7 +369,7 @@ report_create_inner_from_module_list(ReportContext * ctx, GSList * modules)
 	GSList *entries;
 
 
-	fprintf(stderr, "\033[40;32m%s\033[0m\n", module->name);
+	//fprintf(stderr, "\033[40;32m%s\033[0m\n", module->name);
 
 	report_title(ctx, module->name);
 
@@ -377,8 +377,8 @@ report_create_inner_from_module_list(ReportContext * ctx, GSList * modules)
 	    ShellModuleEntry *entry = (ShellModuleEntry *) entries->data;
 
 
-		fprintf(stderr, "\033[2K\033[40;32;1m %s\033[0m\n",
-			entry->name);
+		//fprintf(stderr, "\033[2K\033[40;32;1m %s\033[0m\n",
+		//	entry->name);
 
 	    ctx->entry = entry;
 	    report_subtitle(ctx, entry->name);

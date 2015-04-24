@@ -33,7 +33,6 @@ static void
 benchmark_nqueens(void)
 {
     gdouble elapsed = 0;
-    
         
     elapsed = benchmark_parallel_for(0, 10, nqueens_for, NULL);
     
